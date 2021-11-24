@@ -34,4 +34,9 @@ public class MemberService {
         
         memberDao.update(member);
     }
+    
+    public Member findMemberByEmail(String email) {
+
+        return memberDao.selectByEmail(email);
+    }
 }
