@@ -2,15 +2,18 @@ package com.study.dong.dao;
 
 import com.study.dong.domain.Member;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MemberDao {
     private static long sequence = 0L;
     private Map<String, Member> map = new HashMap<>();
     
-    public Member selectByEmail(String email) {
-        return map.get(email);
+    public Optional<Member> findByEmail(String email) {
+        return Optional.ofNullable(map.get(email));
+    }
+    
+    public List<Member> findAll() {
+        return new ArrayList<>(map.values());
     }
     
     public void insert(Member member) {

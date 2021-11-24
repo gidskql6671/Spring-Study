@@ -14,7 +14,7 @@ public class DongApplication {
 
         RegisterRequest req = new RegisterRequest("test", "test1234", "이름");
         memberService.join(req);
-        Member member = memberService.findMemberByEmail("test");
+        Member member = memberService.findMemberByEmail("test").orElseThrow(Error::new);
 
         System.out.println(member.toString());
 
