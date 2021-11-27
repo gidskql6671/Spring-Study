@@ -10,7 +10,7 @@ public class DongApplication {
         AnnotationConfigApplicationContext ctx =
                 new AnnotationConfigApplicationContext(AppContext.class);
 
-        MemberService memberService = ctx.getBean("memberService", MemberService.class);
+        MemberService memberService = ctx.getBean(MemberService.class);
 
         RegisterRequest req = new RegisterRequest("test", "test1234", "이름");
         memberService.join(req);
