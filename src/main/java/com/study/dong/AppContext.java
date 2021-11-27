@@ -14,6 +14,6 @@ public class AppContext {
     
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberDao());
+        return new MemberService();
     }
 }

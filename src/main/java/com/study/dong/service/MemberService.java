@@ -5,16 +5,24 @@ import com.study.dong.domain.Member;
 import com.study.dong.dto.RegisterRequest;
 import com.study.dong.exception.DuplicateMemberException;
 import com.study.dong.exception.MemberNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 public class MemberService {
     private MemberDao memberDao;
-    
+
+    public MemberService() {}
+
     public MemberService(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-    
+
+    @Autowired
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
+
     public Long join(RegisterRequest req) {
         Optional<Member> res = memberDao.findByEmail(req.getEmail());
         if (res.isPresent()) {
