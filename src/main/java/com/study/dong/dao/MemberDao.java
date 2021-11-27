@@ -1,9 +1,11 @@
 package com.study.dong.dao;
 
 import com.study.dong.domain.Member;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class MemberDao {
     private static long sequence = 0L;
     private Map<String, Member> map = new HashMap<>();

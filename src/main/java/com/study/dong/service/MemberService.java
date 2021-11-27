@@ -7,9 +7,11 @@ import com.study.dong.exception.DuplicateMemberException;
 import com.study.dong.exception.MemberNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class MemberService {
     private MemberDao memberDao;
 
@@ -20,7 +22,6 @@ public class MemberService {
     }
 
     @Autowired
-    @Qualifier("firstMemberDao")
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
