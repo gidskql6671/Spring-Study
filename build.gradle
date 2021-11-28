@@ -10,9 +10,10 @@ repositories {
 }
 
 dependencies {
-    compile 'org.springframework:spring-context:5.2.9.RELEASE'
+    implementation('org.springframework:spring-context:5.2.9.RELEASE')
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    runtimeOnly("org.aspectj:aspectjweaver:1.9.6")
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
