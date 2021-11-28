@@ -1,12 +1,18 @@
 package aop;
 
+import aop.calculator.Calculator;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 public class Main {
     
     public static void main(String[] args) {
-        ExecutionTimeCalculator etc1 = new ExecutionTimeCalculator(new IterCalculator());
-        System.out.println(etc1.factorial(20));
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppContext.class);
 
-        ExecutionTimeCalculator etc2 = new ExecutionTimeCalculator(new RecCalculator());
-        System.out.println(etc2.factorial(20));
+        Calculator cal = ctx.getBean(Calculator.class);
+        long result = cal.factorial(5);
+        System.out.println("cal.factorial(5) = " + result);
+        System.out.println(cal.getClass().getName());
+        
+        ctx.close();
     } 
 }

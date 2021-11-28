@@ -1,4 +1,4 @@
-package aop;
+package aop.calculator;
 
 public class ExecutionTimeCalculator implements Calculator {
 

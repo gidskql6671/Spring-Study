@@ -1,5 +1,8 @@
-package aop;
+package aop.calculator;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class IterCalculator implements Calculator {
 
 
