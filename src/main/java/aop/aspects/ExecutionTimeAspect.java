@@ -1,10 +1,9 @@
-package aop;
+package aop.aspects;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +13,8 @@ import java.util.Arrays;
 @Order(1)
 @Component
 public class ExecutionTimeAspect {
-    
-    @Pointcut("execution(public * aop.calculator..*(..))")
-    private void publicTarget() {
-        
-    }
-    
-    @Around("publicTarget()")
+
+    @Around("CalculatorPointCut.calculatorTarget()")
     public Object measure(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.nanoTime();
         try {

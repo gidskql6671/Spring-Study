@@ -1,10 +1,9 @@
-package aop;
+package aop.aspects;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -18,12 +17,8 @@ import java.util.Map;
 public class CacheAspect {
     private final Map<Long, Object> cache = new HashMap<>();
 
-    @Pointcut("execution(public * aop.calculator..*(..))")
-    public void cacheTarget() {
-        
-    }
     
-    @Around("cacheTarget()")
+    @Around("CalculatorPointCut.calculatorTarget()")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         Long num = (Long) joinPoint.getArgs()[0];
         Signature sig = joinPoint.getSignature();
