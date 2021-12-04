@@ -11,3 +11,5 @@ target/
 out/
 .gradle/
 generated/
+
+dataSource.yaml
