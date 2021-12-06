@@ -12,4 +12,4 @@ out/
 .gradle/
 generated/
 
-dataSource.yaml
+dataSource.properties
