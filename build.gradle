@@ -17,10 +17,10 @@ dependencies {
     implementation("org.springframework:spring-jdbc:5.3.6")
     implementation("org.apache.tomcat:tomcat-jdbc:9.0.41")
     implementation("mysql:mysql-connector-java:8.0.22")
-
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    
+    testImplementation('org.springframework:spring-test:5.3.9')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.0')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.7.0')
 }
 
 test {
