@@ -44,6 +44,13 @@ public class MemberDao {
         );
     }
     
+    public int count() {
+        return jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM member",
+                Integer.class
+        );
+    }
+    
     private RowMapper<Member> memberRowMapper() {
         return (rs, rowNum) -> {
             Member member = new Member(
