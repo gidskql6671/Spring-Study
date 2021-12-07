@@ -32,6 +32,10 @@ public class MemberDao {
 
         return results.stream().findAny();
     }
+    
+    public void clear() {
+        jdbcTemplate.update("DELETE FROM member");
+    }
 
     public void insert(Member member) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
