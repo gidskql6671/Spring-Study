@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,5 +58,36 @@ class MemberDaoTest {
 
         // when & then
         assertThrows(DuplicateKeyException.class, () -> memberDao.insert(member2));
+    }
+
+    @Test
+    void 존재하는_멤버의_findByEmail() {
+        // given
+        String email = "test@abc.com";
+        String password = "test111";
+        String name = "testName";
+        memberDao.insert(new Member(email, password, name));
+        
+        // when
+        Optional<Member> res = memberDao.findByEmail(email);
+
+        // then
+        assertTrue(res.isPresent());
+        Member member = res.get();
+        assertEquals(email, member.getEmail());
+        assertEquals(password, member.getPassword());
+        assertEquals(name, member.getName());
+    }
+    
+    @Test
+    void 존재하지_않는_멤버의_findByEmail() {
+        // given
+        String email = "test@abc.com";
+
+        // when
+        Optional<Member> res = memberDao.findByEmail(email);
+
+        // then
+        assertFalse(res.isPresent());
     }
 }
