@@ -5,9 +5,12 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +34,25 @@ public class MemberDao {
     }
 
     public void insert(Member member) {
-
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                conn -> {
+                    PreparedStatement pstmt = conn.prepareStatement(
+                            "INSERT INTO member(email, password, name) VALUES(?, ?, ?)",
+                            Statement.RETURN_GENERATED_KEYS
+                    );
+                    
+                    pstmt.setString(1, member.getEmail());
+                    pstmt.setString(2, member.getPassword());
+                    pstmt.setString(3, member.getName());
+                    
+                    return pstmt;
+                },
+                keyHolder
+        );
+        
+        Number keyValue = keyHolder.getKey();
+        member.setId(keyValue.longValue());
     }
 
     public void update(Member member) {
@@ -57,7 +78,7 @@ public class MemberDao {
 //                    }
 //                }
 //        );
-        
+
         /* PreparedStatementCreator를 람다로 간편하게 사용할 수 있다. */
         jdbcTemplate.update(
                 conn -> {
@@ -67,11 +88,11 @@ public class MemberDao {
                     pstmt.setString(1, member.getName());
                     pstmt.setString(2, member.getPassword());
                     pstmt.setString(3, member.getEmail());
-                    
+
                     return pstmt;
                 }
         );
-        
+
     }
 
     public List<Member> findAll() {
