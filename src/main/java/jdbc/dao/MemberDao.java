@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,16 +26,52 @@ public class MemberDao {
                 memberRowMapper(),
                 email
         );
-        
+
         return results.stream().findAny();
     }
 
     public void insert(Member member) {
-        
+
     }
 
     public void update(Member member) {
+        /* 간단한 PreparedStatement 사용 */
+//        jdbcTemplate.update(
+//                "UPDATE member SET name = ?, password = ? WHERE email = ?",
+//                member.getName(), member.getPassword(), member.getEmail()
+//        );
 
+        /* PreparedStatementCreator를 사용할 수 있다. */
+//        jdbcTemplate.update(
+//                new PreparedStatementCreator() {
+//                    @Override
+//                    public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+//                        PreparedStatement pstmt = conn.prepareStatement(
+//                                "UPDATE member SET name = ?, password = ? WHERE email = ?"
+//                        );
+//                        pstmt.setString(1, member.getName());
+//                        pstmt.setString(2, member.getPassword());
+//                        pstmt.setString(3, member.getEmail());
+//
+//                        return pstmt;
+//                    }
+//                }
+//        );
+        
+        /* PreparedStatementCreator를 람다로 간편하게 사용할 수 있다. */
+        jdbcTemplate.update(
+                conn -> {
+                    PreparedStatement pstmt = conn.prepareStatement(
+                            "UPDATE member SET name = ?, password = ? WHERE email = ?"
+                    );
+                    pstmt.setString(1, member.getName());
+                    pstmt.setString(2, member.getPassword());
+                    pstmt.setString(3, member.getEmail());
+                    
+                    return pstmt;
+                }
+        );
+        
     }
 
     public List<Member> findAll() {
@@ -43,14 +80,14 @@ public class MemberDao {
                 memberRowMapper()
         );
     }
-    
+
     public int count() {
         return jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM member",
                 Integer.class
         );
     }
-    
+
     private RowMapper<Member> memberRowMapper() {
         return (rs, rowNum) -> {
             Member member = new Member(
