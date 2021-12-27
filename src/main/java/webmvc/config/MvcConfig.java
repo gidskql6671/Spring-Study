@@ -6,12 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
@@ -26,6 +24,9 @@ public class MvcConfig implements WebMvcConfigurer {
     
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        // enable()을 해줘야 defaultServletRequestHandler와 SimpleUrlHandlerMapping Bean이 만들어진다.
+        // 이 두 Bean은 우리가 작성한 컨트롤러(Servlet)에 해당하는 맵핑이 없는 경우를 처리해준다.
+        // 즉, home.css와 같은 정적인 파일들을 처리해준다.
         configurer.enable();
     }
 
