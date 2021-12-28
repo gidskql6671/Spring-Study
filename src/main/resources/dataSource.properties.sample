@@ -1,0 +1,4 @@
+datasource.driverClassName={database driver class ex) com.mysql.cj.jdbc.Driver}
+datasource.url={database url}
+datasource.username={database user name}
+datasource.password={database user password}
