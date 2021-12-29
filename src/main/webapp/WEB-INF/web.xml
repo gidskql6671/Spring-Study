@@ -15,7 +15,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>
                 webmvc.config.MvcConfig
-                webmvc.config.ControllerConfig
+                webmvc.config.ComponentConfig
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
