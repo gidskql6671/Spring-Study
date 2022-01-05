@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,11 +9,11 @@
     <h2> 회원가입 </h2>
     <form class="signup-form" action="/signup" method="post">
         <label>
-            이메일
+            <span th:text="#{signup.email}"></span>
             <input type="email" name="email" placeholder="example@exam.com" /> 
         </label>
         <label>
-            비밀번호
+            <span th:text="#{signup.password}"></span>
             <input type="password" name="password" placeholder="****" /> 
         </label>
         <button> 회원가입 </button>
