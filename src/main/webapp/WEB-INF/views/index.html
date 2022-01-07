@@ -8,7 +8,7 @@
 	<div th:if="${session.member}">
 		<p>이메일: <span th:text="${session.member.getEmail()}"></span> </p>
 		<p>
-			<a href="/password"> 비밀번호 변경 </a>
+			<a href="/member/password"> 비밀번호 변경 </a>
 		</p>
 		<form action="/logout" method="post">
 			<button> 로그아웃 </button>

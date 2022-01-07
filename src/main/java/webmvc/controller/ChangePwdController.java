@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/password")
+@RequestMapping("/member/password")
 public class ChangePwdController {
 
 	private final ChangePwdService changePwdService;
