@@ -19,6 +19,7 @@ public class MemberSignupRequest {
     @Email
     private String email;
 
-    @Size(min = 7, max = 14)
+    @NotBlank
+    @Size(min = 2, max = 14)
     private String password;
 }

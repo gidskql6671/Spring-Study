@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -13,13 +12,13 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @ToString
-public class MemberLoginRequest {
+public class ChangePwdRequest {
 
-    @NotBlank
-    @Email
-    private String email;
+	@NotBlank
+	@Size(min = 2, max = 14)
+	private String currentPassword;
 
-    @NotBlank
-    @Size(min = 2, max = 14)
-    private String password;
+	@NotBlank
+	@Size(min = 2, max = 14)
+	private String newPassword;
 }

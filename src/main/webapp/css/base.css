@@ -5,3 +5,7 @@ body {
     align-items: center;
     margin-top: 20vh;
 }
+
+form label {
+    display: block;
+}
