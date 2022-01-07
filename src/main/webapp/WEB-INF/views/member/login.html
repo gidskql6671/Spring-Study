@@ -10,11 +10,15 @@
     <form class="login-form" action="/login" method="post">
         <label>
             <span th:text="#{member.email}"></span>
-            <input type="email" name="email" placeholder="example@exam.com" /> 
+            <input type="email" name="email" placeholder="example@exam.com" th:value="${member.email}" /> 
         </label>
         <label>
             <span th:text="#{member.password}"></span>
             <input type="password" name="password" placeholder="****" /> 
+        </label>
+        <label>
+            <span> 이메일 기억 </span>
+            <input type="checkbox" name="rememberEmail" th:checked="${member.rememberEmail}" />
         </label>
         <button> 로그인 </button>
     </form>
