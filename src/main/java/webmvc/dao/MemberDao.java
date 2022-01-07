@@ -30,6 +30,16 @@ public class MemberDao {
 
         return results.stream().findAny();
     }
+    
+    public Optional<Member> findById(Long id) {
+        List<Member> results = jdbcTemplate.query(
+                "SELECT * FROM member WHERE id = ?",
+                memberRowMapper(),
+                id
+        );
+
+        return results.stream().findAny();
+    }
 
     public void clear() {
         jdbcTemplate.update("DELETE FROM member");
