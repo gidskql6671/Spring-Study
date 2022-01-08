@@ -26,7 +26,7 @@ public class MemberDetailController {
 					.findById(memberId)
 					.orElseThrow(MemberNotFoundException::new);
 
-			return new MemberDetailResponse(member.getId(), member.getEmail());
+			return new MemberDetailResponse(member.getId(), member.getEmail(), member.getRegisterDateTime());
 		}
 		catch(RuntimeException e) {
 			throw new MemberNotFoundException();

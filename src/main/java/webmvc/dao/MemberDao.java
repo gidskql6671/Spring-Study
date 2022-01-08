@@ -10,6 +10,7 @@ import webmvc.domain.Member;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,12 +51,14 @@ public class MemberDao {
         jdbcTemplate.update(
                 conn -> {
                     PreparedStatement pstmt = conn.prepareStatement(
-                            "INSERT INTO member(email, password) VALUES(?, ?)",
+                            "INSERT INTO member(email, password, register_date) VALUES(?, ?, ?)",
                             Statement.RETURN_GENERATED_KEYS
                     );
 
                     pstmt.setString(1, member.getEmail());
                     pstmt.setString(2, member.getPassword());
+                    pstmt.setTimestamp(3,
+                            Timestamp.valueOf(member.getRegisterDateTime()));
 
                     return pstmt;
                 },
@@ -91,7 +94,8 @@ public class MemberDao {
         return (rs, rowNum) -> {
             Member member = new Member(
                     rs.getString("email"),
-                    rs.getString("password"));
+                    rs.getString("password"),
+                    rs.getTimestamp("register_date").toLocalDateTime());
             member.setId(rs.getLong("id"));
             return member;
         };

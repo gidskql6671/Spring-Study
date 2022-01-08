@@ -6,6 +6,7 @@ import webmvc.domain.Member;
 import webmvc.dto.MemberSignupRequest;
 import webmvc.exception.DuplicateMemberException;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -22,7 +23,7 @@ public class MemberSignupService {
             throw new DuplicateMemberException();
         }
         
-        Member member = new Member(req.getEmail(), req.getPassword());
+        Member member = new Member(req.getEmail(), req.getPassword(), LocalDateTime.now());
         memberDao.insert(member);
         return member.getId();
     }
