@@ -1,6 +1,8 @@
 package webmvc.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -16,6 +18,8 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import webmvc.interceptor.AuthCheckInterceptor;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Configuration
@@ -56,10 +60,15 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        
         ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
                 .json()
-//                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .simpleDateFormat("yyyyMMddHHmmss")
+                .deserializerByType(LocalDateTime.class,
+                        new LocalDateTimeDeserializer(dtFormatter))
+                .serializerByType(LocalDateTime.class,
+                        new LocalDateTimeSerializer(dtFormatter))
                 .build();
         converters.add(0,
                 new MappingJackson2HttpMessageConverter(objectMapper));
