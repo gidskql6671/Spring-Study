@@ -1,6 +1,5 @@
 package webmvc.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +14,5 @@ import java.time.LocalDateTime;
 public class MemberDetailResponse {
 	private Long id;
 	private String email;
-//	@JsonFormat(shape = JsonFormat.Shape.STRING)
-	@JsonFormat(pattern = "yyyyMMddHHmmss")
 	private LocalDateTime registerDateTime;
 }
